@@ -1,0 +1,409 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage{amsmath,amssymb,enumitem,booktabs}
+\setlist{itemsep=2pt,topsep=3pt}
+\usepackage{fancyhdr}\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small DS701 Fall 2026}\fancyhead[R]{\small Homework 4}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\usepackage[breakable]{tcolorbox}
+% --- answer-space macros (problems PDF only; no-ops in the solutions PDF) ---
+% \answerspace{2in}  vertical room for handwritten work, sized from the solution
+% \blank             a short fill-in rule; \blank[1.5in] for a wider one
+% \answerpage        start the next problem on a fresh page (Gradescope page matching)
+\newcommand{\answerspace}[1]{\par\vspace*{#1}}  % \vspace* so room is not dropped at a page break
+\newcommand{\blank}[1][1.2in]{\rule{#1}{0.4pt}}
+\newcommand{\answerpage}{\clearpage}
+\newtcolorbox{solutionbox}{breakable,colback=blue!4,colframe=blue!45!black,title=Solution,fonttitle=\bfseries,left=4pt,right=4pt,top=3pt,bottom=3pt}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={DS701 Homework 4: Probability, MLE, and EM},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{DS701 Homework 4: Probability, MLE, and EM}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Released Mon Sep 28 · due Mon Oct 5, 11:59 pm on Gradescope}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+\noindent\textbf{Name:}\ \rule{2.0in}{0.4pt}\qquad\textbf{BU ID:}\ \rule{1.2in}{0.4pt}
+\vspace{6pt}
+
+\textbf{How this works.} Answer \textbf{by hand on paper} (or a tablet
+with a stylus), show your work, then scan and upload to Gradescope,
+matching each problem to its pages. This is deliberate practice for the
+closed-notes quizzes, which are in the same style --- so do it without a
+computer or an AI assistant. It is \textbf{participation-graded}: a
+serious attempt at every problem earns full credit, and worked solutions
+are released the day after the deadline. Budget 1--2 hours.
+
+\textbf{Covers:} Lecture 05 (Probabilistic Modeling) and Lecture 06
+(Clustering III: GMM and EM). Bayes' rule for events, odds, and the
+Bernoulli pmf are stated in the problems. Give numerical answers to 3
+decimal places; keep the exact fractions when they are simple.
+
+\subsection{Problem 1: A screening test, three
+ways}\label{problem-1-a-screening-test-three-ways}
+
+\emph{Practices: Bayes' rule with the base rate, and the odds /
+likelihood-ratio form.}
+
+A screening test for a disease \(D\) has \textbf{sensitivity}
+\(P(+\mid D) = 0.90\) (positive in 90\% of people who have \(D\)) and
+\textbf{specificity} \(P(-\mid \bar D) = 0.90\) (negative in 90\% of
+people who do not). Bayes' rule for events, with the denominator
+expanded by the law of total probability (with
+\(C_k \in \{D, \bar D\}\)):
+\[P(D\mid +) = \frac{P(+\mid D)\,P(D)}{P(+\mid D)\,P(D) + P(+\mid \bar D)\,P(\bar D)} .\]
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  In the general population the \textbf{prevalence} (base rate) is
+  \(P(D) = 0.01\). A randomly chosen person tests positive. Compute
+  \(P(D\mid +)\), showing the two terms of the denominator separately.
+  In one sentence, why is the answer so far below the 90\% that ``the
+  test is 90\% accurate'' suggests? \(P(D\mid +) =\) \blank[0.8in]
+\end{enumerate}
+
+\answerspace{2in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The same test is used in a high-risk clinic where \(P(D) = 0.10\).
+  Recompute \(P(D\mid +)\). Then state the practical lesson in one or
+  two sentences: the test did not change --- what did, and what does
+  that say about using one test both for mass screening and in a
+  specialist clinic? \(P(D\mid +) =\) \blank[0.8in]
+\end{enumerate}
+
+\answerspace{2in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{Odds form.} Define the odds of an event as
+  \(O(D) = P(D)/P(\bar D)\) and the positive likelihood ratio as
+  \(LR_+ = P(+\mid D)/P(+\mid \bar D)\). Show, starting from Bayes' rule
+  written once for \(D\) and once for \(\bar D\), that
+  \[O(D\mid +) = LR_+ \times O(D)\] (posterior odds = likelihood ratio ×
+  prior odds --- no denominator needed). Then compute \(LR_+\) for this
+  test, redo (a) and (b) in odds and convert back to probabilities to
+  confirm your answers, and finally: a person from the general
+  population tests positive on \textbf{two independent} administrations
+  of the test --- what is \(P(D\mid ++)\)? (Independence here means the
+  second test multiplies the odds by \(LR_+\) again.) \(LR_+ =\)
+  \blank[0.6in]\quad \(P(D\mid ++) =\) \blank[0.8in]
+\end{enumerate}
+
+\answerspace{4in}
+
+\answerpage
+
+\subsection{Problem 2: Maximum likelihood, from
+scratch}\label{problem-2-maximum-likelihood-from-scratch}
+
+\emph{Practices: the MLE recipe --- likelihood, log, derivative, solve
+--- on two models, and knowing why the log is there.}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  \textbf{Bernoulli.} Each observation is \(x_n\in\{0,1\}\) with
+  \(P(x_n = 1) = p\), so \(P(x_n\mid p) = p^{x_n}(1-p)^{1-x_n}\). For
+  \(N\) i.i.d. observations with \(k = \sum_n x_n\) ones: write the
+  likelihood \(L(p)\), the log-likelihood \(\ell(p)\), set
+  \(d\ell/dp = 0\), and solve for \(\hat p\). Then evaluate \(\hat p\)
+  for the data \(1,0,1,1,0,1,1,1,0,1\). (Say in one line why the
+  critical point is a maximum and not a minimum.) For the data,
+  \(\hat p =\) \blank[0.8in]
+\end{enumerate}
+
+\answerspace{3in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Gaussian mean and variance.} Start from the Gaussian
+  log-likelihood
+  \[\ell(\mu,\sigma^2) = -\frac N2\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_{n=1}^N (x_n-\mu)^2 .\]
+  Derive \(\hat\mu\) from \(\partial\ell/\partial\mu = 0\). Then treat
+  \(v = \sigma^2\) as the variable, derive \(\hat\sigma^2\) from
+  \(\partial\ell/\partial v = 0\) (substituting \(\hat\mu\)), and
+  evaluate both on the data \(2, 3, 5, 6, 9\). Compare \(\hat\sigma^2\)
+  with the sample variance \(s^2\) that divides by \(N-1\) --- which is
+  larger, and by what factor here? \(\hat\mu =\)
+  \blank[0.6in]\quad \(\hat\sigma^2 =\) \blank[0.6in]\quad \(s^2 =\)
+  \blank[0.6in]\quad factor: \blank[0.6in]
+\end{enumerate}
+
+\answerspace{3in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{Why the log?} Give the two reasons the lecture gives for
+  maximizing \(\ell\) rather than \(L\): one about \emph{where} the
+  maximum is, one about the \emph{form} of the function. Then add the
+  practical one: for \(N = 2000\) observations from (a), every factor of
+  \(L\) is at most \(1\) --- say roughly how small \(L\) is at best
+  (e.g.~compare \(0.5^{2000}\) with the smallest positive double, about
+  \(10^{-308}\)) and why \(\ell\) does not have this problem.
+\end{enumerate}
+
+\answerspace{2.2in}
+
+\answerpage
+
+\subsection{Problem 3: One EM iteration by
+hand}\label{problem-3-one-em-iteration-by-hand}
+
+\emph{Practices: the E-step and M-step formulas on numbers small enough
+to see what they do, and the argument for why EM behaves.}
+
+A one-dimensional mixture of \(K=2\) Gaussians, both with variance
+\(\sigma^2 = 1\) (\textbf{keep the variances fixed at 1 throughout} ---
+update only means and weights). Current parameters: \(\mu_1 = 0\),
+\(\mu_2 = 2\), \(\pi_1 = \pi_2 = 0.5\). Data: \(x_1 = 0\), \(x_2 = 1\),
+\(x_3 = 2\), \(x_4 = 4\). Useful values: \(e^{-0.5}\approx0.607\),
+\(e^{-2}\approx0.135\), \(e^{-8}\approx0.00034\); note that with equal
+variances the factor \(1/\sqrt{2\pi}\) is the same in every term and
+cancels in the responsibilities.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  \textbf{E-step.} For each data point compute the responsibilities
+  \(\gamma_{i1}, \gamma_{i2}\) (3 decimals). Before computing, say for
+  which point the answer must be exactly \(0.5\) and why.
+  \((\gamma_{i1},\gamma_{i2})\) for \(x_1,\dots,x_4\):
+  \blank[1in] \blank[1in] \blank[1in] \blank[1in]
+\end{enumerate}
+
+\answerspace{2.5in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{M-step.} Compute \(N_1, N_2\), the new means
+  \(\mu_1', \mu_2'\) and the new weights \(\pi_1', \pi_2'\). In one
+  sentence each: why did \(\mu_2\) move more than \(\mu_1\), and why did
+  the weights become unequal? \(N_1 =\) \blank[0.5in] \(N_2 =\)
+  \blank[0.5in] \(\mu_1' =\) \blank[0.5in] \(\mu_2' =\)
+  \blank[0.5in] \(\pi_1' =\) \blank[0.5in] \(\pi_2' =\) \blank[0.5in]
+\end{enumerate}
+
+\answerspace{3.4in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The lecture states that the log-likelihood \(\ell(\theta)\) never
+  decreases from one EM iteration to the next. Explain the mechanism in
+  words: what the E-step computes, what the M-step maximizes and why
+  that has a closed form, and why alternating the two cannot lower
+  \(\ell\). Then say what this guarantees about the sequence
+  \(\ell^{(t)}\), what it does \textbf{not} guarantee, and what is done
+  about that in practice (relate to Homework 3, Problem 1).
+\end{enumerate}
+
+\answerspace{2.8in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \textbf{Hard vs.~soft.} Without recomputing, describe what the four
+  responsibilities in (a) would look like if both variances were
+  \(\sigma^2 = 0.01\) instead of \(1\), and what the M-step for the
+  means would then reduce to. Which algorithm is that? State the one
+  practical difference and the one conceptual difference between GMM/EM
+  and \(k\)-means that the lecture draws.
+\end{enumerate}
+
+\answerspace{2.2in}
+
+
+
+
+\end{document}
