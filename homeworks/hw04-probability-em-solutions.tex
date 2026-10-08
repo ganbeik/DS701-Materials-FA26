@@ -194,25 +194,9 @@
 \maketitle
 
 
-\noindent\textbf{Name:}\ \rule{2.0in}{0.4pt}\qquad\textbf{BU ID:}\ \rule{1.2in}{0.4pt}
-\vspace{6pt}
-
-\textbf{How this works.} Answer \textbf{by hand on paper} (or a tablet
-with a stylus), show your work, then scan and upload to Gradescope,
-matching each problem to its pages. This is deliberate practice for the
-closed-notes quizzes, which are in the same style --- so do it as much
-as possible without a computer or an AI assistant. If you are unable to
-do it without assistance, try AI assistance in ``socratic'' mode, where
-you preface your questions by telling AI it is a tutor helping you learn
-rather then give you answers right away. This homework is
-\textbf{participation-graded}: a serious attempt at every problem earns
-full credit, and worked solutions are released the day after the
-deadline. Budget 1--2 hours.
-
-\textbf{Covers:} Lecture 05 (Probabilistic Modeling) and Lecture 06
-(Clustering III: GMM and EM). Bayes' rule for events, odds, and the
-Bernoulli pmf are stated in the problems. Give numerical answers to 3
-decimal places; keep the exact fractions when they are simple.
+\begin{center}\LARGE\bfseries\color{blue!45!black} SOLUTIONS\end{center}
+\renewcommand{\answerspace}[1]{}
+\renewcommand{\answerpage}{\par\vspace{6pt}}
 
 \subsection{Problem 1: A screening test, three
 ways}\label{problem-1-a-screening-test-three-ways}
@@ -276,6 +260,47 @@ expanded by the law of total probability (with
 
 \answerspace{4in}
 
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  \(P(+\mid D)P(D) = 0.9\times0.01 = 0.009\);
+  \(P(+\mid\bar D)P(\bar D) = 0.1\times0.99 = 0.099\); \(P(+) = 0.108\).
+  So \(P(D\mid +) = 0.009/0.108 = 1/12 \approx 0.083\). The false
+  positives (\(0.099\)) outnumber the true positives (\(0.009\)) eleven
+  to one because the disease is rare: 10\% of a large healthy population
+  is far more people than 90\% of a tiny sick one. ``90\% accurate''
+  describes \(P(+\mid D)\), not \(P(D\mid +)\) --- the base rate is what
+  separates them.
+\item
+  \(0.9\times0.1 = 0.09\); \(0.1\times0.9 = 0.09\);
+  \(P(D\mid +) = 0.09/0.18 = 0.5\). Only the prior changed, from
+  \(0.01\) to \(0.10\), and the posterior went from \(0.083\) to
+  \(0.5\). A positive result means very different things in the two
+  settings: in mass screening it is mostly a false alarm and should
+  trigger a confirmatory test, not a diagnosis; in the clinic, where the
+  prior is high, the same result is a coin flip and worth acting on.
+  (Common mistake: reporting \(0.9\) in both cases --- that ignores the
+  base rate entirely.)
+\item
+  \(P(D\mid +) = P(+\mid D)P(D)/P(+)\) and
+  \(P(\bar D\mid +) = P(+\mid\bar D)P(\bar D)/P(+)\). Divide the first
+  by the second; \(P(+)\) cancels:
+  \(O(D\mid +) = \dfrac{P(+\mid D)}{P(+\mid\bar D)}\cdot\dfrac{P(D)}{P(\bar D)} = LR_+\times O(D)\).
+  Here \(LR_+ = 0.9/0.1 = 9\). (a): prior odds \(0.01/0.99 = 1{:}99\);
+  posterior odds \(9{:}99 = 1{:}11\);
+  \(P = 1/(1+11) = 1/12 \approx 0.083\). (b): prior odds \(1{:}9\);
+  posterior odds \(9{:}9 = 1{:}1\); \(P = 0.5\). Two independent
+  positives: odds \(1{:}99 \times 9\times 9 = 81{:}99\);
+  \(P(D\mid ++) = 81/180 = 0.45\). Each positive multiplies the odds by
+  9, but a \(1{:}99\) start needs two of them just to reach even odds
+  --- the same base-rate effect, now in a form where repeated evidence
+  is a simple product.
+\end{enumerate}
+
+\end{solutionbox}
+
 \answerpage
 
 \subsection{Problem 2: Maximum likelihood, from
@@ -335,6 +360,51 @@ scratch}\label{problem-2-maximum-likelihood-from-scratch}
 \end{enumerate}
 
 \answerspace{2.2in}
+
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  \(L(p) = \prod_n p^{x_n}(1-p)^{1-x_n} = p^k(1-p)^{N-k}\);
+  \(\ell(p) = k\log p + (N-k)\log(1-p)\);
+  \(\dfrac{d\ell}{dp} = \dfrac kp - \dfrac{N-k}{1-p} = 0 \Rightarrow k(1-p) = (N-k)p
+  \Rightarrow \hat p = k/N\). It is a maximum because
+  \(\ell'' = -k/p^2 - (N-k)/(1-p)^2 < 0\) (or: \(\ell\to-\infty\) at
+  both ends \(p\to0,1\), so the single critical point is the peak).
+  Data: \(k = 7\), \(N = 10\), \(\hat p = 0.7\).
+\item
+  \(\partial\ell/\partial\mu = \frac{1}{\sigma^2}\sum_n (x_n-\mu) = 0 \Rightarrow
+  \hat\mu = \frac1N\sum_n x_n\) (matches the lecture's one-line
+  derivation). With \(v=\sigma^2\):
+  \(\ell = -\frac N2\log(2\pi) - \frac N2\log v - \frac{1}{2v}S\), where
+  \(S = \sum_n(x_n-\hat\mu)^2\);
+  \(\partial\ell/\partial v = -\frac{N}{2v} +
+  \frac{S}{2v^2} = 0 \Rightarrow \hat v = S/N\),
+  i.e.~\(\hat\sigma^2 = \frac1N\sum_n
+  (x_n-\hat\mu)^2\). Data: \(\hat\mu = 25/5 = 5\); deviations
+  \(-3,-2,0,1,4\), squares \(9,4,0,1,16\), \(S = 30\);
+  \(\hat\sigma^2 = 30/5 = 6\); \(s^2 = 30/4 = 7.5\). The \(N-1\) version
+  is larger by the factor \(N/(N-1) = 5/4\).
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\roman{enumii})}
+  \tightlist
+  \item
+    \(\log\) is monotonically increasing, so \(\ell\) and \(L\) have
+    their maximum at the \emph{same} \(\theta\) --- nothing is lost.
+    (ii) The log turns the product over observations into a sum, so the
+    derivative is a sum of simple terms and the algebra (as in (a) and
+    (b)) is short. (iii) Numerically: \(L\) is a product of thousands of
+    numbers \(\le 1\); even in the best case \(0.5^{2000} = 10^{-602}\),
+    far below \(10^{-308}\), so in floating point \(L\) underflows to
+    exactly \(0\) for every \(p\) and cannot be maximized.
+    \(\ell = 2000\log 0.5 \approx -1386\) is an ordinary number; sums of
+    logs stay in range.
+  \end{enumerate}
+\end{enumerate}
+
+\end{solutionbox}
 
 \answerpage
 
@@ -411,6 +481,83 @@ cancels in the responsibilities.
 \end{enumerate}
 
 \answerspace{2.2in}
+
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  With equal \(\pi_k\) and equal variances,
+  \(\gamma_{i1} = \dfrac{e^{-(x_i-0)^2/2}}
+  {e^{-(x_i-0)^2/2} + e^{-(x_i-2)^2/2}}\). The point \(x_2 = 1\) is
+  equidistant from the two means, so both numerators are \(e^{-0.5}\)
+  and \(\gamma_{21} = \gamma_{22} = 0.5\) exactly. \(x_1 = 0\):
+  \(e^{0}=1\) vs.~\(e^{-2} = 0.135\): \(\gamma_{11} = 1/1.135 = 0.881\),
+  \(\gamma_{12} = 0.119\). \(x_2 = 1\): \(0.5\), \(0.5\). \(x_3 = 2\):
+  \(e^{-2}\) vs.~\(e^0\): \(\gamma_{31} = 0.119\),
+  \(\gamma_{32} = 0.881\). \(x_4 = 4\): \(e^{-8} = 0.00034\)
+  vs.~\(e^{-2} = 0.135\): \(\gamma_{41} = 0.00034/0.13534 = 0.0025\)
+  (call it \(0.002\)--\(0.003\)), \(\gamma_{42} = 0.9975\). Each row
+  sums to 1. (Common mistake: forgetting the square in the exponent, or
+  using \(e^{-(x-\mu)^2}\) instead of \(e^{-(x-\mu)^2/2}\).)
+\item
+  \(N_1 = 0.881+0.5+0.119+0.0025 = 1.5025 \approx 1.503\);
+  \(N_2 = 0.119+0.5+0.881+0.9975 = 2.4975 \approx 2.498\) (they sum to
+  \(n=4\)).
+  \(\mu_1' = (0.881\cdot0 + 0.5\cdot1 + 0.119\cdot2 + 0.0025\cdot4)/1.5025 = 0.748/1.5025 \approx 0.498\).
+  \(\mu_2' = (0.119\cdot0 + 0.5\cdot1 + 0.881\cdot2 + 0.9975\cdot4)/2.4975 = 6.252/2.4975 \approx 2.503\).
+  \(\pi_1' = 1.5025/4 \approx 0.376\),
+  \(\pi_2' = 2.4975/4 \approx 0.624\). \(\mu_2\) moved more because the
+  far point \(x_4 = 4\) is almost entirely component 2's responsibility
+  and drags its weighted mean right, while component 1 only picks up the
+  half-share of \(x_2 = 1\). The weights became unequal because
+  component 2 now ``owns'' more total responsibility (\(N_2 > N_1\)) ---
+  three of the four points lie at or to the right of the midpoint 1.
+  (Check: the log-likelihood rises from \(-7.999\) to \(-7.315\).)
+\item
+  The E-step computes, for the current \(\theta\), the posterior
+  probability \(\gamma_{ik} = P(z_i = k\mid x_i,\theta)\) that each
+  point came from each component --- Bayes' rule with \(\pi_k\) as prior
+  and \(\mathcal N(x_i\mid\mu_k,\Sigma_k)\) as likelihood. Given those
+  soft assignments, the M-step maximizes the \emph{expected
+  complete-data} log-likelihood
+  \(\sum_i\sum_k \gamma_{ik}[\log\pi_k + \log\mathcal N(x_i\mid\mu_k,\Sigma_k)]\);
+  because the log now sits on individual Gaussians (not on a sum of
+  them), the derivatives separate and the maximizers are the weighted
+  MLE formulas --- the closed form. Why \(\ell\) cannot go down: with
+  the responsibilities fixed at their E-step values, that expected
+  complete-data objective (plus a term that does not depend on
+  \(\theta\)) is a lower bound on \(\ell(\theta)\) that \emph{touches}
+  \(\ell\) at the current \(\theta\); the M-step raises the bound, and
+  \(\ell\) sits above the raised bound, so
+  \(\ell(\theta^{\rm new}) \ge \ell(\theta^{\rm old})\) (the lecture
+  asserts the monotone increase; the ``touching lower bound'' sentence
+  is the reason). Guarantee: \(\ell^{(t)}\) is non-decreasing and
+  bounded above, so it converges --- which is what the
+  log-likelihood-change stopping rule relies on. Not guaranteed: that
+  the limit is the global maximum; EM finds a \emph{local} maximum and
+  depends on the initialization --- exactly like the \(k\)-means run in
+  HW3 Problem 1(c) that stopped at WCSS 74 instead of 33.5. In practice:
+  initialize from \(k\)-means and/or run several restarts, keep the
+  highest \(\ell\).
+\item
+  With \(\sigma^2 = 0.01\) the exponents are 100 times larger, so every
+  responsibility saturates: \(x_1\) is \(\approx(1,0)\), \(x_3\) and
+  \(x_4\) are \(\approx(0,1)\), and only the exactly-equidistant
+  \(x_2 = 1\) stays at \((0.5, 0.5)\) (a knife-edge tie). With 0/1
+  responsibilities, \(\mu_k' = \frac{1}{N_k}\sum_i\gamma_{ik}x_i\) is
+  just the plain mean of the points assigned to component \(k\) --- the
+  \(k\)-means update; the E-step is the nearest-center assignment. So EM
+  with tiny, equal, fixed variances \emph{is} Lloyd's algorithm.
+  Practical difference (lecture): GMM makes soft assignments (``soft
+  \(k\)-means'') where \(k\)-means makes hard ones. Conceptual
+  difference: the GMM states an explicit generative assumption --- data
+  drawn from a mixture of Gaussians with their own covariances --- which
+  can be examined and replaced; \(k\)-means only declared an objective,
+  and its implicit spherical/equal-variance assumption was never stated.
+\end{enumerate}
+
+\end{solutionbox}
 
 
 

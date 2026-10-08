@@ -67,6 +67,7 @@
 
 
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -165,6 +166,10 @@
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
   pdftitle={DS701 Homework 3: k-means and Linkage},
   colorlinks=true,
@@ -226,6 +231,7 @@ line, \(\|x-c\|^2 = (x-c)^2\)). The objective is the WCSS / inertia,
   update step} (using the new centers, same assignment).
 \end{enumerate}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
 Iteration 1 & Cluster 1 & Cluster 2 \\
@@ -238,6 +244,7 @@ WCSS after assignment (old centers) & \blank[1.6in] & \\
 New centers & \blank[1.6in] & \blank[1.6in] \\
 WCSS after update (new centers) & \blank[1.6in] & \\
 \end{longtable}
+}
 
 \answerspace{2.5in}
 
@@ -252,6 +259,7 @@ WCSS after update (new centers) & \blank[1.6in] & \\
   go up?
 \end{enumerate}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
 Iteration 2 & Cluster 1 & Cluster 2 \\
@@ -264,6 +272,7 @@ WCSS after assignment (old centers) & \blank[1.6in] & \\
 New centers & \blank[1.6in] & \blank[1.6in] \\
 WCSS after update (new centers) & \blank[1.6in] & \\
 \end{longtable}
+}
 
 Would a third assignment step change anything? \blank[0.8in]\\
 WCSS values seen, in order: \blank[2.5in]\quad Ever went up?
@@ -386,6 +395,7 @@ heights, chaining, and matching a linkage to a data shape.}
 
 Five objects A--E with pairwise distances (a metric):
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}cccccc@{}}
 \toprule\noalign{}
 & A & B & C & D & E \\
@@ -399,6 +409,7 @@ Five objects A--E with pairwise distances (a metric):
 \textbf{D} & 9 & 7 & 4 & 0 & 5 \\
 \textbf{E} & 12 & 10 & 8 & 5 & 0 \\
 \end{longtable}
+}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -413,6 +424,7 @@ Five objects A--E with pairwise distances (a metric):
   order.
 \end{enumerate}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}llll@{}}
 \toprule\noalign{}
 Single linkage & Pair merged & Height & Linkage-matrix row \\
@@ -425,6 +437,7 @@ Step 2 & \blank[1.2in] & \blank[0.7in] & \blank[2in] \\
 Step 3 & \blank[1.2in] & \blank[0.7in] & \blank[2in] \\
 Step 4 & \blank[1.2in] & \blank[0.7in] & \blank[2in] \\
 \end{longtable}
+}
 
 \answerspace{4in}
 
@@ -436,6 +449,7 @@ Step 4 & \blank[1.2in] & \blank[0.7in] & \blank[2in] \\
   Repeat with \textbf{complete linkage}.
 \end{enumerate}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}llll@{}}
 \toprule\noalign{}
 Complete linkage & Pair merged & Height & Linkage-matrix row \\
@@ -448,6 +462,7 @@ Step 2 & \blank[1.2in] & \blank[0.7in] & \blank[2in] \\
 Step 3 & \blank[1.2in] & \blank[0.7in] & \blank[2in] \\
 Step 4 & \blank[1.2in] & \blank[0.7in] & \blank[2in] \\
 \end{longtable}
+}
 
 \answerspace{3.2in}
 

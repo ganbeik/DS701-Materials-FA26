@@ -1,0 +1,578 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage{amsmath,amssymb,enumitem,booktabs}
+\setlist{itemsep=2pt,topsep=3pt}
+\usepackage{fancyhdr}\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small DS701 Fall 2026}\fancyhead[R]{\small Homework 5}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\usepackage[breakable]{tcolorbox}
+% --- answer-space macros (problems PDF only; no-ops in the solutions PDF) ---
+% \answerspace{2in}  vertical room for handwritten work, sized from the solution
+% \blank             a short fill-in rule; \blank[1.5in] for a wider one
+% \answerpage        start the next problem on a fresh page (Gradescope page matching)
+\newcommand{\answerspace}[1]{\par\vspace*{#1}}  % \vspace* so room is not dropped at a page break
+\newcommand{\blank}[1][1.2in]{\rule{#1}{0.4pt}}
+\newcommand{\answerpage}{\clearpage}
+\newtcolorbox{solutionbox}{breakable,colback=blue!4,colframe=blue!45!black,title=Solution,fonttitle=\bfseries,left=4pt,right=4pt,top=3pt,bottom=3pt}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={DS701 Homework 5: Bias--Variance{,} Trees{,} and Ensembles},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{DS701 Homework 5: Bias--Variance, Trees, and Ensembles}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Released Wed Oct 7 · due Tue Oct 13, 11:59 pm on Gradescope}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+\noindent\textbf{Name:}\ \rule{2.0in}{0.4pt}\qquad\textbf{BU ID:}\ \rule{1.2in}{0.4pt}
+\vspace{6pt}
+
+\textbf{How this works.} Answer \textbf{by hand on paper} (or a tablet
+with a stylus), show your work, then scan and upload to Gradescope,
+matching each problem to its pages. This is deliberate practice for the
+closed-notes quizzes, which are in the same style --- so do it as much
+as possible without a computer or an AI assistant. If you are stuck, you
+can try AI in tutorial style or reach out to course staff. It is
+\textbf{participation-graded}: a serious attempt at every problem earns
+full credit, and worked solutions are released the day after the
+deadline. Budget 1--2 hours.
+
+\textbf{Covers:} Lecture 07 (Generalization) and Lecture 08 (Decision
+Trees and Random Forests).
+
+\subsection{Problem 1: Bias and variance, made
+concrete}\label{problem-1-bias-and-variance-made-concrete}
+
+\emph{Practices: turning ``high bias / high variance'' from words into
+numbers, and reading a learning curve.}
+
+We want to predict the value of some function at a single test input
+\(x_0\), whose true value is \(f(x_0) = 10\). Two models were each
+trained four times, on four independent training sets drawn from the
+same distribution, and asked to predict at \(x_0\):
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+training set & 1 & 2 & 3 & 4 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Model A (very simple) & 7 & 8 & 8 & 9 \\
+Model B (very flexible) & 6 & 14 & 8 & 12 \\
+\end{longtable}
+}
+
+For a model whose predictions at \(x_0\) across training sets are
+\(\hat y_1,\dots,\hat y_4\) with mean \(\bar y\), use these definitions:
+\[\text{bias} = \bar y - f(x_0),\qquad
+\text{variance} = \tfrac14\textstyle\sum_{i=1}^{4}(\hat y_i-\bar y)^2,\qquad
+\text{expected squared error} \approx \text{bias}^2 + \text{variance} + \sigma^2,\]
+where \(\sigma^2\) is the variance of the label noise (irreducible; the
+same for every model).
+
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  For each model compute the mean prediction, bias\(^2\), and variance.
+  Which model is ``high bias'' and which is ``high variance''? Note that
+  each is \emph{low} in the other quantity.
+\end{enumerate}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+mean \(\bar y\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+bias\(^2\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+variance
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+high bias or high variance?
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Model A & \blank[0.7in] & \blank[0.7in] & \blank[0.7in] &
+\blank[1.4in] \\
+Model B & \blank[0.7in] & \blank[0.7in] & \blank[0.7in] &
+\blank[1.4in] \\
+\end{longtable}
+}
+
+\answerspace{2.5in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  With \(\sigma^2 = 3\), compute the expected squared error of each
+  model at \(x_0\) and state which model you would deploy. Would your
+  choice change for any value of \(\sigma^2\)? One sentence.
+\end{enumerate}
+
+Expected squared error --- A: \blank[0.8in]\quad B:
+\blank[0.8in]\quad Deploy: \blank[0.8in]
+
+\answerspace{1.5in}
+\answerpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The table below is a \emph{learning curve} --- mean squared error on
+  the training set and on a held-out validation set as the training-set
+  size \(n\) grows --- for two other models, X and Y (all four columns
+  come from the same data-generating process).
+\end{enumerate}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+\(n\) & X: train & X: validation & Y: train & Y: validation \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+50 & 3.9 & 8.0 & 0.1 & 9.0 \\
+200 & 4.0 & 5.5 & 0.2 & 6.5 \\
+1000 & 4.1 & 4.5 & 0.3 & 4.5 \\
+5000 & 4.1 & 4.2 & 0.4 & 3.0 \\
+\end{longtable}
+}
+
+Diagnose each of X and Y as mainly high-bias or mainly high-variance,
+giving the feature of the curve that tells you. For each, say whether
+collecting five times more data is worth the money, and name one other
+remedy from Lecture 07.
+
+X is mainly high \blank[1in]\quad Y is mainly high \blank[1in]
+
+\answerspace{2.5in}
+
+\answerpage
+
+\subsection{Problem 2: Choosing a split, then knowing when to
+stop}\label{problem-2-choosing-a-split-then-knowing-when-to-stop}
+
+\emph{Practices: entropy and Gini by hand, information gain, and why the
+greedy tree keeps growing.}
+
+A lender records, for ten past borrowers, whether they own their home,
+whether they are married, and whether they later \textbf{defaulted} (the
+label):
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+\# & Home owner & Married & Default \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Y & Y & N \\
+2 & Y & Y & N \\
+3 & Y & N & N \\
+4 & Y & N & N \\
+5 & N & Y & Y \\
+6 & N & Y & N \\
+7 & N & Y & N \\
+8 & N & N & Y \\
+9 & N & N & Y \\
+10 & N & N & Y \\
+\end{longtable}
+}
+
+With \(p_i\) the fraction of class \(i\) at a node (and
+\(0\log_2 0 = 0\)), use
+\[\text{Entropy}=-\sum_i p_i\log_2 p_i,\qquad \text{Gini}=1-\sum_i p_i^2 .\]
+The collective impurity of \(k\) children is their size-weighted average
+\(I(\text{children})=\sum_{j=1}^{k}\frac{N(v_j)}{N}\,I(v_j)\), and the
+information gain of a split is \(I(\text{parent})-I(\text{children})\).
+You may use \(\log_2 3 \approx 1.585\) and \(\log_2 5 \approx 2.322\);
+every other logarithm you need follows from these
+(e.g.~\(\log_2\tfrac{2}{5} = 1 - \log_2 5\)). Round to 3 decimals.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Compute the entropy and the Gini index of the root node (all ten
+  rows).
+\end{enumerate}
+
+Entropy: \blank[0.8in]\quad Gini: \blank[0.8in]
+
+\answerspace{1.8in}
+\answerpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Two candidate splits are available at the root: on \emph{Home owner}
+  and on \emph{Married}. For each, compute the collective (weighted)
+  entropy of the two children and the information gain. Which split does
+  the greedy algorithm choose? Check that the Gini gains agree on the
+  ordering (compute both weighted Gini values).
+\end{enumerate}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+split
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+collective entropy
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+information gain
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+weighted Gini
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Gini gain
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Home owner & \blank[0.9in] & \blank[0.9in] & \blank[0.9in] &
+\blank[0.9in] \\
+Married & \blank[0.9in] & \blank[0.9in] & \blank[0.9in] &
+\blank[0.9in] \\
+\end{longtable}
+}
+
+Greedy choice: \blank[1.2in]
+
+\answerspace{3.5in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\item
+  Grow the tree one more level: on the impure child from (b), split on
+  the remaining attribute, and compute its information gain. Write out
+  the resulting two-level tree (the leaf labels are the majority class
+  in each leaf) and its training accuracy on these ten rows.\nopagebreak
+
+  Gain of the second split: \blank[0.8in]\quad Training accuracy:
+  \blank[0.8in]
+\end{enumerate}
+
+\answerspace{3in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  One leaf of your tree is still impure. Explain in two or three
+  sentences why a tree grown to purity on a real dataset (with more
+  attributes to split on) tends to overfit, and say what each of the
+  following would do to the tree in (c): \texttt{max\_depth\ =\ 1};
+  \texttt{min\_samples\_leaf\ =\ 3} (a leaf must contain at least 3
+  training rows).
+\end{enumerate}
+
+\answerspace{2.2in}
+
+\answerpage
+
+\subsection{Problem 3: What averaging can and cannot
+buy}\label{problem-3-what-averaging-can-and-cannot-buy}
+
+\emph{Practices: reasoning about ensembles with one identity, and
+separating bagging, random forests, and boosting by which error term
+they attack.}
+
+Suppose \(B\) predictors each have variance \(\sigma^2\) at some input,
+and every pair has correlation \(\rho\). The variance of their average
+is
+\[\operatorname{Var}\!\Big(\frac{1}{B}\sum_{b=1}^{B}\hat y_b\Big) = \rho\,\sigma^2 + \frac{(1-\rho)\,\sigma^2}{B}.\]
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Take \(\sigma^2 = 1\). Compute the variance of the average for
+  \((\rho, B) = (0.8, 10)\), \((0.8, 100)\), and \((0.2, 100)\). What
+  does the variance approach as \(B \to \infty\) at each \(\rho\)? In
+  one sentence: what is the more effective lever, more trees or less
+  correlated trees?
+\end{enumerate}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\((\rho, B)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\((0.8, 10)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\((0.8, 100)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\((0.2, 100)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+limit, \(\rho = 0.8\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+limit, \(\rho = 0.2\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+variance of the average & \blank[0.8in] & \blank[0.8in] & \blank[0.8in]
+& \blank[0.8in] & \blank[0.8in] \\
+\end{longtable}
+}
+
+\answerspace{1.5in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Verify the identity for \(B = 2\) using
+  \(\operatorname{Var}(X+Y) = \operatorname{Var}X + \operatorname{Var}Y + 2\operatorname{Cov}(X,Y)\),
+  \(\operatorname{Var}(aX) = a^2\operatorname{Var}X\), and
+  \(\operatorname{Cov}(X,Y) = \rho\,\sigma^2\) when both variances equal
+  \(\sigma^2\).
+\end{enumerate}
+
+\answerspace{2in}
+\answerpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \emph{Bagging} grows each tree on a bootstrap sample of the rows and
+  averages; a \emph{random forest} does the same but, at every split,
+  considers only a random subset of \texttt{max\_features} of the
+  attributes. In terms of \(\rho\), \(\sigma^2\), and \(B\), say what
+  each ingredient buys, and why the L08 activity found that bagging
+  alone (all features at every split) barely improved on one deep tree
+  when a few strong attributes dominate. What might a very small
+  \texttt{max\_features} cost you?
+\end{enumerate}
+
+\answerspace{2.2in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \emph{Boosting} (not covered in lecture --- here is all you need) fits
+  many \emph{shallow} trees in sequence, each one trained on the errors
+  the ensemble has made so far, and adds them up. Which of bias and
+  variance is a shallow tree short on, so which term is boosting mainly
+  reducing? Contrast with the forest in one sentence: why deep trees for
+  a forest but shallow trees for boosting?
+\end{enumerate}
+
+\answerspace{1.8in}
+
+
+
+
+\end{document}

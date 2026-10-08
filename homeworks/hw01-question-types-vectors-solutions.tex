@@ -67,6 +67,7 @@
 
 
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -165,8 +166,12 @@
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
-  pdftitle={DS701 Homework 1: Question Types; Vectors, Norms, Dot Products},
+  pdftitle={DS701 Homework 1: Question Types; Vectors{,} Norms{,} Dot Products},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -457,6 +462,7 @@ together''.}
 
 Four students report hours studied and their exam score:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}ccc@{}}
 \toprule\noalign{}
 student & hours (\(h\)) & score (\(s\)) \\
@@ -469,6 +475,7 @@ student & hours (\(h\)) & score (\(s\)) \\
 3 & 6 & 70 \\
 4 & 8 & 80 \\
 \end{longtable}
+}
 
 Written as a data matrix \(X\) this is \(4\times 2\): \(m=4\) objects
 (rows), \(n=2\) features (columns). To \textbf{mean-center} a column,

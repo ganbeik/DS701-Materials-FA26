@@ -67,6 +67,7 @@
 
 
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -165,6 +166,10 @@
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
   pdftitle={DS701 Homework 2: Distances},
   colorlinks=true,
@@ -228,6 +233,7 @@ vocabulary (\emph{data}, \emph{model}, \emph{error}):
   changes.
 \end{enumerate}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}cccc@{}}
 \toprule\noalign{}
 pair & \(p=1\) & \(p=2\) & \(p=\infty\) \\
@@ -239,6 +245,7 @@ pair & \(p=1\) & \(p=2\) & \(p=\infty\) \\
 (A,C) & \blank[0.8in] & \blank[0.8in] & \blank[0.8in] \\
 (B,C) & \blank[0.8in] & \blank[0.8in] & \blank[0.8in] \\
 \end{longtable}
+}
 
 Closest pair: \(p=1\): \blank[0.7in] \(\quad p=2\):
 \blank[0.7in] \(\quad p=\infty\): \blank[0.7in]
@@ -295,6 +302,7 @@ does Hamming say is more alike, and which does Jaccard say? In one or
 two sentences, say which measure you would trust for ``are these two
 shoppers similar?'' and why.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}ccc@{}}
 \toprule\noalign{}
 pair & Hamming & \(J_{\rm Sim}\) \\
@@ -305,6 +313,7 @@ pair & Hamming & \(J_{\rm Sim}\) \\
 (P,Q) & \blank[0.8in] & \blank[0.8in] \\
 (R,S) & \blank[0.8in] & \blank[0.8in] \\
 \end{longtable}
+}
 
 \answerspace{1.8in}
 
@@ -393,6 +402,7 @@ largest-range feature, and what standardizing does.}
 A bank describes customers by two features: annual income (in dollars)
 and age (in years). A query customer \(q\) and four customers on file:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}crr@{}}
 \toprule\noalign{}
 & income & age \\
@@ -406,6 +416,7 @@ and age (in years). A query customer \(q\) and four customers on file:
 \(P_3\) & 45,000 & 28 \\
 \(P_4\) & 51,000 & 45 \\
 \end{longtable}
+}
 
 To \textbf{standardize} a feature, replace each value \(v\) by its
 \(z\)-score \((v-\mu)/\sigma\), where \(\mu\) and \(\sigma\) are the
@@ -423,6 +434,7 @@ bank's full customer base: income \(\mu = 50{,}000\),
   to any of these distances?
 \end{enumerate}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
   >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
@@ -447,6 +459,7 @@ bank's full customer base: income \(\mu = 50{,}000\),
 \(d^2\) from \(q\) & \blank[0.9in] & \blank[0.9in] & \blank[0.9in] &
 \blank[0.9in] \\
 \end{longtable}
+}
 
 Nearest neighbor: \blank[0.7in]
 
@@ -462,6 +475,7 @@ Nearest neighbor: \blank[0.7in]
   \(q\), and give the nearest neighbor now. Does it change?
 \end{enumerate}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
@@ -493,6 +507,7 @@ Nearest neighbor: \blank[0.7in]
 \(d^2\) from \(q\) & --- & \blank[0.7in] & \blank[0.7in] & \blank[0.7in]
 & \blank[0.7in] \\
 \end{longtable}
+}
 
 Nearest neighbor: \blank[0.7in]
 
@@ -509,6 +524,7 @@ Nearest neighbor: \blank[0.7in]
   most like \(q\)'', and why --- what is wrong with the other two?
 \end{enumerate}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
   >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
@@ -533,6 +549,7 @@ Nearest neighbor: \blank[0.7in]
 \(d^2\) from \(q\) & \blank[0.9in] & \blank[0.9in] & \blank[0.9in] &
 \blank[0.9in] \\
 \end{longtable}
+}
 
 Nearest neighbor: \blank[0.7in] \(\quad\) Trust: (a) / (b) / (c)
 
