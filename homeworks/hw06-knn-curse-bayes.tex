@@ -171,7 +171,7 @@
 \@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
 \makeatother
 \hypersetup{
-  pdftitle={DS701 Homework 6: k-NN{,} Naive Bayes{,} and the SVM Margin},
+  pdftitle={DS701 Homework 6: k-NN{,} the Curse and Naive Bayes},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -180,7 +180,7 @@
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{DS701 Homework 6: k-NN, Naive Bayes, and the SVM Margin}
+\title{DS701 Homework 6: k-NN, the Curse and Naive Bayes}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -200,10 +200,12 @@
 \textbf{How this works.} Answer \textbf{by hand on paper} (or a tablet
 with a stylus), show your work, then scan and upload to Gradescope,
 matching each problem to its pages. This is deliberate practice for the
-closed-notes quizzes, which are in the same style --- so do it without a
-computer or an AI assistant. It is \textbf{participation-graded}: a
-serious attempt at every problem earns full credit, and worked solutions
-are released the day after the deadline. Budget 1--2 hours.
+closed-notes quizzes, which are in the same style --- so do it as much
+as possible without a computer or an AI assistant. If you are stuck, you
+can try AI in tutorial style or reach out to course staff. It is
+\textbf{participation-graded}: a serious attempt at every problem earns
+full credit, and worked solutions are released the day after the
+deadline. Budget 1--2 hours.
 
 \textbf{Covers:} Lecture 09 (\(k\)-Nearest Neighbors, the curse of
 dimensionality, Naive Bayes), plus one self-contained geometry problem
@@ -236,6 +238,8 @@ label & A & A & A & A & B & B & B & B \\
 A new user has \(\mathbf{q} = (4,\ 0.1)\). Use Euclidean distance; since
 only the \emph{ordering} of distances matters, you may work with squared
 distances throughout.
+
+\answerpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -310,6 +314,7 @@ New \(k = 1\) prediction: \blank[0.8in]\quad new \(k = 3\) prediction:
 \blank[0.8in]
 
 \answerspace{2.8in}
+\answerpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -348,7 +353,7 @@ of the data.
   fraction \(f\) is \(s = f^{1/d}\). (Two or three lines.)
 \end{enumerate}
 
-\answerspace{1.8in}
+\answerspace{3.8in}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -374,6 +379,7 @@ of the data.
 }
 
 \answerspace{1.2in}
+\answerpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -388,11 +394,12 @@ of the data.
   neighbour'' stop carrying information as \(d\) grows?
 \end{enumerate}
 
-Fraction within \(\epsilon = 0.1\) of the surface --- \(d = 2\):
-\blank[0.8in]\quad \(d = 10\): \blank[0.8in]\quad \(d = 50\):
+Fraction within \(\epsilon = 0.1\) of the surface:
+
+\(d = 2\): \blank[0.8in]\quad \(d = 10\): \blank[0.8in]\quad \(d = 50\):
 \blank[0.8in]
 
-\answerspace{1.8in}
+\answerspace{2.8in}
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -494,6 +501,7 @@ no Flu & \blank[0.7in] & \blank[0.7in] & \blank[0.7in] & \blank[0.7in] &
 Prediction: \blank[0.8in]
 
 \answerspace{1.5in}
+\newpage
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
@@ -528,88 +536,6 @@ Smoothed prediction:
 \end{enumerate}
 
 \answerspace{1.8in}
-
-\textbf{Part II --- SVM margin (self-contained; quizzes will not test
-SVMs by name, only this geometry).} A \emph{linear classifier} in the
-plane predicts \(\operatorname{sign}(\mathbf{w}\cdot\mathbf{x} + b)\),
-and the distance from a point \(\mathbf{x}_0\) to the boundary line
-\(\mathbf{w}\cdot\mathbf{x} + b = 0\) is
-\(|\mathbf{w}\cdot\mathbf{x}_0 + b| \,/\, \lVert\mathbf{w}\rVert\). Take
-\(\mathbf{w} = (3, 4)\), \(b = -10\), and the six labelled points
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}lllllll@{}}
-\toprule\noalign{}
-point & A & B & C & D & E & F \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\(\mathbf{x}\) & (1, 3) & (2, 4) & (6, 2) & (−1, 2) & (0, 1) & (0, 0) \\
-label \(y\) & +1 & +1 & +1 & −1 & −1 & −1 \\
-\end{longtable}
-}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Compute \(\mathbf{w}\cdot\mathbf{x} + b\) and the distance to the
-  boundary for each point. Is every point correctly classified? Which
-  points are closest to the boundary (these are the \emph{support
-  vectors}), and what is the \emph{margin} --- the distance from the
-  boundary to the nearest point on each side? A seventh point \((3, 1)\)
-  arrives labelled \(-1\): is it classified correctly, and what is its
-  distance? Finish with one sentence: among all lines that separate the
-  two classes, a support vector machine picks the one with the largest
-  margin --- why is that a sensible choice for \emph{new} points? (The
-  full method --- how the line is found --- is optional module M7.)
-\end{enumerate}
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-A
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-B
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-C
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-D
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-E
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-F
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-(3, 1)
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\(\mathbf{w}\cdot\mathbf{x} + b\) & \blank[0.5in] & \blank[0.5in] &
-\blank[0.5in] & \blank[0.5in] & \blank[0.5in] & \blank[0.5in] &
-\blank[0.5in] \\
-distance & \blank[0.5in] & \blank[0.5in] & \blank[0.5in] & \blank[0.5in]
-& \blank[0.5in] & \blank[0.5in] & \blank[0.5in] \\
-\end{longtable}
-}
-
-Support vectors: \blank[1in]\quad Margin: \blank[0.8in]
-
-\answerspace{2.2in}
 
 
 
