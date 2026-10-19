@@ -10,11 +10,31 @@ Notebooks for **DS701: Tools for Data Science** (Boston University, Fall 2026).
   notebook downloads automatically when it runs on Colab so that
   `grader.check(...)` works.
 
+## Running the notebooks
+
+**On Colab:** use the badge on the course site, or open a notebook from the
+Colab link above. Each notebook fetches the data files, helper modules and images
+it needs from this repository, so nothing else has to be uploaded.
+
+**On your own machine (VS Code or JupyterLab):** clone this repository and open a
+notebook in place. The notebooks find `data/`, `scripts/` and `laUtilities.py`
+in the clone, so keep the folder layout as it is. Create an environment first:
+
+```sh
+git clone https://github.com/tools4ds/DS701-Materials-FA26.git
+cd DS701-Materials-FA26
+python3 -m venv .venv && source .venv/bin/activate
+pip install jupyter pandas numpy scipy matplotlib seaborn scikit-learn statsmodels networkx
+```
+
+`requirements.txt` lists every package the course uses, grouped by lecture
+(some, such as `torch` and `transformers`, are large). Install what a lecture
+needs when it asks for it. Pictures in the notebooks load from this repository
+over the internet.
+
 ## For students
 
-Open a notebook from the badge on the course site, or from this repo via
-[Colab](https://colab.research.google.com/github/tools4ds/DS701-Materials-FA26).
-Save your own copy (**File → Save a copy in Drive**) before you start working —
+On Colab, save your own copy (**File → Save a copy in Drive**) before you start working —
 edits to the opened copy are not persisted.
 
 ## Note

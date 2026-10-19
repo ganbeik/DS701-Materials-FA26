@@ -1,5 +1,65 @@
-numpy
-pandas
+# Full install for Jupyter Notebooks
+jupyter
+
+# Used initially by Quarto to read configuration yml
+pyyaml
+
+# Enabled when execute: cache: true
+jupyter-cache
+
+# 01-Intro-to-Python
 matplotlib
+pandas
+
+# 02B-Pandas
+pandas_datareader
+setuptools
+seaborn
+yfinance
 scipy
+
+# A7-Linear-Algebra-Refresher
+qrcode
+
+# 03-Clustering-I-kmeans
 scikit-learn
+
+# 13-Dimensionality-Reduction-PCA-tSNE
+nltk==3.10.0
+
+# 09-Classification-II-kNN
+pydotplus
+
+# 10-Regression-I-Linear
+statsmodels
+
+# M9-Gradient-Boosting
+xgboost
+lightgbm
+catboost
+
+
+# M11-NN-Gradient-Descent
+networkx
+ffmpeg
+
+# M12-NN-Backprop
+graphviz
+torch
+torchvision
+
+# M2-Time-Series
+kagglehub
+
+# M3-RNN
+pretty_midi
+
+# 18-NLP
+transformers
+nltk
+spacy
+hf_xet
+bertopic
+
+otter-grader   # in-class activity autograding (scripts/build-activities.sh)
+pypdf                 # scripts/build-homeworks.sh leak check
