@@ -1,0 +1,656 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage{amsmath,amssymb,enumitem,booktabs}
+\setlist{itemsep=2pt,topsep=3pt}
+\usepackage{fancyhdr}\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small DS701 Fall 2026}\fancyhead[R]{\small Homework 7}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\usepackage[breakable]{tcolorbox}
+% --- answer-space macros (problems PDF only; no-ops in the solutions PDF) ---
+% \answerspace{2in}  vertical room for handwritten work, sized from the solution
+% \blank             a short fill-in rule; \blank[1.5in] for a wider one
+% \answerpage        start the next problem on a fresh page (Gradescope page matching)
+\newcommand{\answerspace}[1]{\par\vspace*{#1}}  % \vspace* so room is not dropped at a page break
+\newcommand{\blank}[1][1.2in]{\rule{#1}{0.4pt}}
+\newcommand{\answerpage}{\clearpage}
+\newtcolorbox{solutionbox}{breakable,colback=blue!4,colframe=blue!45!black,title=Solution,fonttitle=\bfseries,left=4pt,right=4pt,top=3pt,bottom=3pt}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={DS701 Homework 7: Least Squares{,} Logistic Loss and Regularization},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{DS701 Homework 7: Least Squares, Logistic Loss and
+Regularization}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Released Mon Oct 19 · due Mon Oct 26, 11:59 pm on Gradescope}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+\begin{center}\LARGE\bfseries\color{blue!45!black} SOLUTIONS\end{center}
+\renewcommand{\answerspace}[1]{}
+\renewcommand{\answerpage}{\par\vspace{6pt}}
+
+\answerpage
+
+\subsection{Problem 1: Least squares by hand, and as a
+projection}\label{problem-1-least-squares-by-hand-and-as-a-projection}
+
+\emph{Practices: forming and solving the normal equations, and reading
+the result geometrically.}
+
+Fit the line \(y = \beta_0 + \beta_1 x\) to the four points
+\[(x, y) \in \{(1, 2),\ (2, 3),\ (3, 5),\ (4, 6)\}.\]
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Write the design matrix \(X\) (with a column of ones for the
+  intercept) and the vector \(\mathbf{y}\). Form \(X^TX\) and
+  \(X^T\mathbf{y}\), and solve the normal equations
+  \(X^TX\boldsymbol\beta = X^T\mathbf{y}\) for
+  \(\hat\beta_0, \hat\beta_1\). This produces a system of 2 equations in
+  2 unknowns thatyou can solve directly without matrix inversion. (Both
+  are exact decimals --- no rounding needed.)
+
+  \(\hat\beta_0 =\) \blank[0.8in] \(\quad \hat\beta_1 =\) \blank[0.8in]
+\end{enumerate}
+
+\answerspace{3in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\item
+  Compute the fitted values
+  \(\hat{\mathbf y} = X\hat{\boldsymbol\beta}\) and the residual vector
+  \(\mathbf r = \mathbf y - \hat{\mathbf y}\). Verify
+  \(X^T\mathbf r = \mathbf 0\) --- i.e.~that \(\mathbf r\) is orthogonal
+  to \emph{both} columns of \(X\). Then compute TSS, RSS and \(R^2\).
+
+  \(\hat{\mathbf y} =\) \blank[2in] \(\quad \mathbf r =\)
+  \blank[1.8in]TSS \(=\) \blank[0.8in] \(\quad\) RSS \(=\)
+  \blank[0.8in] \(\quad R^2 =\) \blank[0.8in]
+\end{enumerate}
+
+\answerspace{2.5in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  In one or two sentences: the normal equations express ``residual
+  \(\perp\) column space of \(X\)''. Explain what ``\(\hat{\mathbf y}\)
+  is the projection of \(\mathbf y\) onto the column space of \(X\)''
+  means for these four points --- which set is \(\mathbf y\) being
+  projected onto, and why the projection is the least-squares choice.
+\end{enumerate}
+
+\answerspace{2.5in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\item
+  Suppose a colleague accidentally adds the feature \(x\) a second time,
+  so the design matrix becomes
+  \(X' = [\mathbf 1\ \ \mathbf x\ \ \mathbf x]\) (\(4\times3\)). Show
+  that \(X'^TX'\) is singular (a one-line argument or a determinant will
+  do). What can you say about the least-squares coefficient vector now
+  --- is it unique? --- and about the fitted values \(\hat{\mathbf y}\)?
+  Give two different coefficient vectors that produce the same fit as in
+  (a).
+
+  Two coefficient vectors \((\beta_0, \beta_1, \beta_2)\):
+  \blank[1.5in] and \blank[1.5in]
+\end{enumerate}
+
+\answerspace{2.5in}
+
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  \(X = \begin{bmatrix}1&1\\1&2\\1&3\\1&4\end{bmatrix}\),
+  \(\mathbf y = (2,3,5,6)^T\).
+  \(X^TX = \begin{bmatrix}4&10\\10&30\end{bmatrix}\) (\(n\),
+  \(\sum x_i\), \(\sum x_i^2\)),
+  \(X^T\mathbf y = \begin{bmatrix}16\\47\end{bmatrix}\) (\(\sum y_i\),
+  \(\sum x_iy_i = 2+6+15+24\)). Normal equations:
+  \(4\beta_0 + 10\beta_1 = 16\) and \(10\beta_0 + 30\beta_1 = 47\).
+  Multiply the first by \(2.5\): \(10\beta_0 + 25\beta_1 = 40\);
+  subtract from the second:
+  \(5\beta_1 = 7 \Rightarrow \hat\beta_1 = 1.4\), then
+  \(\hat\beta_0 = (16 - 14)/4 = 0.5\). (Equivalently
+  \((X^TX)^{-1} = \tfrac{1}{20}\begin{bmatrix}30&-10\\-10&4\end{bmatrix}\);
+  \(\det X^TX = 120-100 = 20\).) So \(\hat y = 0.5 + 1.4x\).
+\item
+  \(\hat{\mathbf y} = (1.9,\,3.3,\,4.7,\,6.1)^T\);
+  \(\mathbf r = (0.1,\,-0.3,\,0.3,\,-0.1)^T\).
+  \(\mathbf 1^T\mathbf r = 0.1-0.3+0.3-0.1 = 0\) and
+  \(\mathbf x^T\mathbf r = 0.1 - 0.6 + 0.9 - 0.4 = 0\), so
+  \(X^T\mathbf r = \mathbf 0\). \(\bar y = 4\): TSS \(= 4+1+1+4 = 10\);
+  RSS \(= 0.01+0.09+0.09+0.01 = 0.20\); \(R^2 = 1 - 0.20/10 = 0.98\)
+  (and ESS \(= 9.8\), TSS \(=\) RSS \(+\) ESS as it must with an
+  intercept).
+\item
+  The column space of \(X\) is the plane in \(\mathbb R^4\) spanned by
+  \(\mathbf 1 = (1,1,1,1)\) and \(\mathbf x = (1,2,3,4)\) --- the set of
+  all vectors of fitted values \(\beta_0\mathbf 1 + \beta_1\mathbf x\)
+  any line could produce. \(\mathbf y\) does not lie in that plane (no
+  line goes through all four points), so the closest achievable
+  \(\hat{\mathbf y}\) is the orthogonal projection of \(\mathbf y\) onto
+  it: the residual \(\mathbf y - \hat{\mathbf y}\) is perpendicular to
+  the plane (that is exactly \(X^T\mathbf r = \mathbf 0\)), and
+  perpendicular means shortest, i.e.~smallest
+  \(\Vert\mathbf y - X\boldsymbol\beta\Vert^2\).
+\item
+  The second and third columns of \(X'\) are equal, so
+  \(\operatorname{rank}X' = 2 < 3\) and \(X'^TX'\) (whose second and
+  third rows/columns are identical) has determinant \(0\) --- singular.
+  The normal equations still have solutions but not a unique one: only
+  \(\beta_1 + \beta_2\) is pinned down (it must equal \(1.4\)), so there
+  is a whole line of minimizers. The fitted values are unchanged ---
+  \(\hat{\mathbf y}\) is the projection onto the \emph{same} column
+  space, and the projection is unique even when its coordinates are not.
+  Two examples: \((\beta_0,\beta_1,\beta_2) =
+  (0.5, 1.4, 0)\) and \((0.5, 0.4, 1.0)\) (or \((0.5, 2.4, -1.0)\)), all
+  giving \(\hat{\mathbf y} = (1.9,3.3,4.7,6.1)\). \emph{Common mistake:}
+  claiming the fit itself breaks --- it is the coefficients, not the
+  predictions, that become non-identifiable (and, numerically, huge and
+  unstable when the columns are merely \emph{nearly} equal ---
+  multicollinearity).
+\end{enumerate}
+
+\end{solutionbox}
+
+\answerpage
+
+\subsection{Problem 2: Logistic loss and one gradient
+step}\label{problem-2-logistic-loss-and-one-gradient-step}
+
+\emph{Practices: the sigmoid, the log-loss, and the chain rule that
+makes its gradient so simple.}
+
+Consider a one-feature logistic model
+\(p(y{=}1 \mid x) = \sigma(wx + b)\) with \(\sigma(z) = 1/(1+e^{-z})\).
+Current parameters: \(w = 1\), \(b = -1\). Three labelled points:
+\[(x, y) \in \{(2, 1),\ (0, 0),\ (-1, 1)\}.\] The \textbf{log-loss}
+(negative log-likelihood) of one example is
+\(\ell_i = -\big[y_i\log p_i + (1-y_i)\log(1-p_i)\big]\) with
+\(p_i = \sigma(wx_i + b)\); the total loss is \(\ell = \sum_i \ell_i\).
+Minimizing \(\ell\) is the same as maximizing the likelihood \(L\). You
+may use \(e^{-1}\approx0.368\), \(e^{-2}\approx0.135\),
+\(\ln 0.731\approx-0.313\), \(\ln 0.119\approx-2.127\), and
+\(\sigma'(z) = \sigma(z)\big(1-\sigma(z)\big)\) (take it as given, or
+verify it in one line).
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  For each point compute \(z_i = wx_i + b\), \(p_i = \sigma(z_i)\) (3
+  decimals) and \(\ell_i\). Report the total loss \(\ell\). Which point
+  is the model most wrong about? You can use a calculator to compute the
+  sigmoid and log-loss. Problems like this will be simplified for the
+  quiz.
+\end{enumerate}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ccccc@{}}
+\toprule\noalign{}
+\(x_i\) & \(y_i\) & \(z_i\) & \(p_i\) & \(\ell_i\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(2\) & \(1\) & \blank[0.8in] & \blank[0.8in] & \blank[0.8in] \\
+\(0\) & \(0\) & \blank[0.8in] & \blank[0.8in] & \blank[0.8in] \\
+\(-1\) & \(1\) & \blank[0.8in] & \blank[0.8in] & \blank[0.8in] \\
+\end{longtable}
+}
+
+Total \(\ell =\) \blank[0.8in] \(\quad\) Most wrong about the point with
+\(x =\) \blank[0.8in]
+
+\answerspace{2in}
+\answerpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Show, for a single example, that
+  \(\dfrac{\partial \ell_i}{\partial w} = (p_i - y_i)\,x_i\) and
+  \(\dfrac{\partial \ell_i}{\partial b} = p_i - y_i\). (Chain rule:
+  \(\ell_i \to p_i \to z_i \to w\); the given \(\sigma'\) does the heavy
+  lifting.)
+\end{enumerate}
+
+\answerspace{3.5in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\item
+  Using (b), compute \(\partial\ell/\partial w\) and
+  \(\partial\ell/\partial b\) summed over the three points, and take one
+  gradient-\textbf{descent} step with learning rate \(\alpha = 0.5\):
+  \(w \leftarrow w - \alpha\,\partial\ell/\partial w\),
+  \(b \leftarrow b - \alpha\,\partial\ell/\partial b\). Report the new
+  \((w, b)\) to 3 decimals. In which direction did \(b\) move, and why
+  does that make sense given (a)?
+
+  \(\partial\ell/\partial w =\)
+  \blank[0.8in] \(\quad \partial\ell/\partial b =\)
+  \blank[0.8in] \(\quad\) new \((w, b) =\) \blank[1.5in]
+\end{enumerate}
+
+\answerspace{2.5in}
+\answerpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  (Optional) A classmate proposes fitting the same model by minimizing
+  squared error \(\sum_i (p_i - y_i)^2\) instead. Give two reasons, in a
+  short paragraph, why the lecture fits logistic regression by maximum
+  likelihood (i.e.~minimizes the log-loss) rather than squared error.
+  Hint: what does the least-squares criterion assume about the noise,
+  and how large a penalty does each loss assign to a confident wrong
+  prediction such as \(p_i = 0.99\) when \(y_i = 0\)?
+\end{enumerate}
+
+\answerspace{1.8in}
+
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  \(x=2\): \(z = 1\), \(p = 1/(1+0.368) = 0.731\), \(y=1\):
+  \(\ell_1 = -\ln 0.731 = 0.313\). \(x=0\): \(z=-1\),
+  \(p = 1/(1+2.718) = 0.269\), \(y=0\):
+  \(\ell_2 = -\ln(1-0.269) = -\ln 0.731 = 0.313\). \(x=-1\): \(z=-2\),
+  \(p = 1/(1+7.389) = 0.119\), \(y=1\): \(\ell_3 = -\ln 0.119 = 2.127\).
+  Total \(\ell = 0.313+0.313+2.127 = 2.753\). The third point: the model
+  gives the label-1 point only a \(12\%\) chance, and its loss
+  dominates.
+\item
+  With \(\ell_i = -y_i\log p_i - (1-y_i)\log(1-p_i)\):
+  \(\partial\ell_i/\partial p_i = -y_i/p_i + (1-y_i)/(1-p_i)\);
+  \(\partial p_i/\partial z_i = p_i(1-p_i)\);
+  \(\partial z_i/\partial w = x_i\), \(\partial z_i/\partial b = 1\).
+  Multiply:
+  \[\frac{\partial\ell_i}{\partial z_i} = \Big(-\frac{y_i}{p_i} + \frac{1-y_i}{1-p_i}\Big)p_i(1-p_i)
+  = -y_i(1-p_i) + (1-y_i)p_i = p_i - y_i,\] so
+  \(\partial\ell_i/\partial w = (p_i-y_i)x_i\) and
+  \(\partial\ell_i/\partial b = p_i-y_i\). (Verifying \(\sigma'\):
+  \(\sigma = (1+e^{-z})^{-1}\), so
+  \(\sigma' = e^{-z}(1+e^{-z})^{-2} = \sigma\cdot\frac{e^{-z}}{1+e^{-z}} = \sigma(1-\sigma)\).)
+\item
+  \(p_i - y_i\): \(-0.269,\ +0.269,\ -0.881\).
+  \(\partial\ell/\partial w = (-0.269)(2) + (0.269)(0) + (-0.881)(-1) = -0.538 + 0.881 = 0.343\);
+  \(\partial\ell/\partial b = -0.269 + 0.269 - 0.881 = -0.881\). Step:
+  \(w = 1 - 0.5(0.343) = 0.829\) (0.828 with unrounded intermediates ---
+  either accepted), \(b = -1 - 0.5(-0.881) = -0.560\). \(b\) went
+  \emph{up}: two of the three points are label 1 and the model is
+  under-predicting them (net \(\sum(p_i-y_i) < 0\)), so raising the base
+  rate lowers the loss (it drops from \(2.75\) to about \(2.35\)).
+  \emph{Common mistake:} adding \(\alpha\nabla\ell\) --- that is ascent
+  on the \emph{loss}. Written as gradient ascent, the update adds
+  \(\alpha\) times the gradient of the \emph{log-likelihood} --- the
+  same move.
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\roman{enumii})}
+  \tightlist
+  \item
+    Least squares is maximum likelihood only under Gaussian noise; a 0/1
+    label is a Bernoulli outcome, and its likelihood is
+    \(\prod p_i^{y_i}(1-p_i)^{1-y_i}\) --- maximizing that is exactly
+    minimizing the log-loss, so log-loss is the principled objective and
+    its minimizer gives calibrated probabilities. (ii) Squared error
+    caps the penalty for a confident wrong answer at 1 (\(p=0.99, y=0\):
+    \(0.98\)), while log-loss charges \(-\ln 0.01 = 4.6\) and grows
+    without bound --- it refuses to let the model be confidently wrong.
+    A third acceptable reason: with the sigmoid inside, squared error is
+    non-convex in \((w,b)\) with flat regions where the gradient
+    \(\propto p(1-p)\) vanishes for saturated wrong predictions, whereas
+    the log-loss gradient \((p-y)x\) stays large exactly when the error
+    is large --- gradient descent behaves well.
+  \end{enumerate}
+\end{enumerate}
+
+\end{solutionbox}
+
+\answerpage
+
+\subsection{Problem 3: Ridge shrinks, LASSO
+zeroes}\label{problem-3-ridge-shrinks-lasso-zeroes}
+
+\emph{Practices: what the L2 and L1 penalties actually do to a
+coefficient, and how to choose the penalty weight.}
+
+Throughout, \(\lambda \ge 0\) is the penalty weight.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  \textbf{Ridge in one dimension.} For a no-intercept model
+  \(y \approx \beta x\) with data
+  \((x, y) \in \{(1,1),\ (2,4),\ (3,7)\}\), the ridge objective is
+  \(J(\beta) = \sum_i (y_i - \beta x_i)^2 + \lambda\beta^2\). By setting
+  \(dJ/d\beta = 0\), show that
+  \(\hat\beta_\lambda = \dfrac{\sum_i x_iy_i}{\sum_i x_i^2 + \lambda}\)
+  (this is \((X^TX + \lambda I)^{-1}X^T\mathbf y\) with \(X\) a single
+  column). Evaluate it for \(\lambda = 0, 1, 10\) (3 decimals) and
+  describe in a sentence what happens as \(\lambda\) grows. Can any
+  finite \(\lambda\) make \(\hat\beta_\lambda\) exactly \(0\)?
+
+  \(\hat\beta_0 =\) \blank[0.8in] \(\quad \hat\beta_1 =\)
+  \blank[0.8in] \(\quad \hat\beta_{10} =\) \blank[0.8in] \(\quad\)
+  exactly \(0\)? \blank[0.6in]
+\end{enumerate}
+
+\answerspace{2.5in}
+\newpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\item
+  \textbf{LASSO in one dimension.} The building block of the LASSO is
+  the scalar problem
+  \[\min_\beta\ \tfrac12(\beta - z)^2 + \lambda|\beta|,\] where \(z\) is
+  the unpenalized (least-squares) value. Assume first \(z > 0\). Show
+  that the minimizer is \(\hat\beta = z - \lambda\) if \(z > \lambda\)
+  and \(\hat\beta = 0\) if \(z \le \lambda\). (Argue in two cases: if
+  the minimizer is \(\beta > 0\), differentiate; if \(\beta<0\), show it
+  cannot be a minimizer when \(z>0\); the remaining candidate is
+  \(\beta = 0\).) By symmetry the general answer is
+  \(\hat\beta = \operatorname{sign}(z)\max(|z|-\lambda, 0)\) --- the
+  \emph{soft threshold}. Evaluate it for \(\lambda = 1\) and \(z = 3\),
+  \(z = 0.5\), \(z = -2\).
+
+  LASSO, \(\lambda=1\): \(z=3 \to\) \blank[0.8in] \(\quad z=0.5 \to\)
+  \blank[0.8in] \(\quad z=-2 \to\) \blank[0.8in]
+\end{enumerate}
+
+\answerspace{3in}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\item
+  The ridge version of the same scalar problem,
+  \(\tfrac12(\beta - z)^2 + \lambda\beta^2\), has minimizer
+  \(\hat\beta = z/(1+2\lambda)\) (you need not derive it). Evaluate it
+  for \(\lambda = 1\) and the same three \(z\), and then explain in two
+  or three sentences, using what you found in (a)--(c), why the L1
+  penalty produces coefficients that are \emph{exactly} zero while the
+  L2 penalty only shrinks them. (Think about the slope of \(|\beta|\)
+  versus \(\beta^2\) at \(\beta = 0\).)
+
+  Ridge, \(\lambda=1\): \(z=3 \to\) \blank[0.8in] \(\quad z=0.5 \to\)
+  \blank[0.8in] \(\quad z=-2 \to\) \blank[0.8in]
+\end{enumerate}
+
+\answerspace{2in}
+\answerpage
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \textbf{Scenario.} An analyst fits LASSO to predict house price from
+  \texttt{sqft} (values in the thousands), \texttt{bedrooms} (1--5) and
+  \texttt{age\_years} (0--100), without standardizing, and chooses
+  \(\lambda\) as the value that minimizes the \emph{training} RSS. State
+  the two things wrong with this procedure and what to do instead (one
+  or two sentences each).
+\end{enumerate}
+
+\answerspace{2in}
+
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  \(dJ/d\beta = -2\sum_i x_i(y_i - \beta x_i) + 2\lambda\beta = 0
+  \Rightarrow \beta(\sum x_i^2 + \lambda) = \sum x_iy_i\). Here
+  \(\sum x_iy_i = 1 + 8 + 21 = 30\) and \(\sum x_i^2 = 14\), so
+  \(\hat\beta_0 = 30/14 = 2.143\), \(\hat\beta_1 = 30/15 = 2.000\),
+  \(\hat\beta_{10} = 30/24 = 1.250\). The estimate is pulled
+  monotonically toward \(0\) as \(\lambda\) grows (the denominator grows
+  while the numerator is fixed), but \(30/(14+\lambda) > 0\) for every
+  finite \(\lambda\): ridge shrinks, never zeroes.
+\item
+  Let \(f(\beta) = \tfrac12(\beta-z)^2 + \lambda|\beta|\), \(z > 0\).
+  \emph{Case \(\beta>0\):} \(f = \tfrac12(\beta-z)^2 + \lambda\beta\),
+  \(f' = \beta - z + \lambda = 0
+  \Rightarrow \beta = z - \lambda\), valid (positive) only if
+  \(z > \lambda\); \(f''=1>0\) so it is a minimum. \emph{Case
+  \(\beta<0\):} \(f' = \beta - z - \lambda < 0\) throughout, so \(f\) is
+  decreasing on \((-\infty,0)\) and no negative point is a minimizer ---
+  moving toward \(0\) always helps. \emph{Case \(\beta = 0\):} the only
+  remaining candidate; when \(z \le \lambda\) the right-hand slope at
+  \(0\) is \(-z + \lambda \ge 0\) and the left-hand slope is
+  \(-z-\lambda < 0\), so \(f\) increases as you move away from \(0\) in
+  either direction --- \(0\) is the minimizer. Hence
+  \(\hat\beta = z-\lambda\) if \(z>\lambda\), else \(0\); with the sign
+  case, \(\hat\beta = \operatorname{sign}(z)\max(|z|-\lambda,0)\).
+  \(\lambda=1\): \(z=3 \to 2\); \(z=0.5 \to 0\); \(z=-2 \to -1\).
+\item
+  Ridge, \(\lambda = 1\): \(z=3\to1\); \(z=0.5\to0.167\);
+  \(z=-2\to-0.667\) --- every value is scaled by \(1/3\), none is zero.
+  Reason: near \(\beta=0\) the L2 penalty \(\lambda\beta^2\) is flat
+  (derivative \(2\lambda\beta \to 0\)), so it exerts no force at zero
+  and any nonzero \(z\) pulls the coefficient off zero --- the L2
+  optimum balances two derivatives and lands at \(z/(1+2\lambda)\),
+  small but nonzero. The L1 penalty \(\lambda|\beta|\) has a kink at
+  \(0\) with slope \(\pm\lambda\) on either side, so as long as the pull
+  of the data \(|z|\) is below \(\lambda\), the penalty wins and
+  \(\hat\beta = 0\) exactly. That is why LASSO does variable selection
+  and ridge does not.
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \emph{No standardization:} the penalty
+    \(\lambda\Vert\boldsymbol\beta\Vert_1\) charges every coefficient
+    the same price per unit, but a coefficient on \texttt{sqft}
+    (thousands) is naturally small and one on \texttt{bedrooms} (1--5)
+    naturally large, so LASSO would zero out \texttt{sqft} first for
+    reasons of units, not relevance. Fix: center \(\mathbf y\) and
+    standardize each column of \(X\) (zero mean, unit variance) before
+    penalizing. (2) \emph{Choosing \(\lambda\) by training RSS:} the
+    training RSS is minimized at \(\lambda = 0\) (any penalty can only
+    raise it), so the rule always picks plain least squares and defeats
+    the purpose. Fix: choose \(\lambda\) by cross-validation / held-out
+    error, which is what regularization is trying to improve.
+  \end{enumerate}
+\end{enumerate}
+
+\end{solutionbox}
+
+
+
+
+\end{document}
