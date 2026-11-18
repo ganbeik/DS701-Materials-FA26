@@ -1,0 +1,606 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage{amsmath,amssymb,enumitem,booktabs,tikz}
+\usetikzlibrary{arrows.meta,positioning}
+% tighter title block (same titling trick as the reference sheets) so Problem 1 fits page 1
+\usepackage{titling}
+\setlength{\droptitle}{-1.0in}
+\posttitle{\par\end{center}}
+\preauthor{}\postauthor{}\predate{}\postdate{}
+\setlist{itemsep=2pt,topsep=3pt}
+\usepackage{fancyhdr}\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small DS701 Fall 2026}\fancyhead[R]{\small Homework 9}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\usepackage[breakable]{tcolorbox}
+% --- answer-space macros (problems PDF only; no-ops in the solutions PDF) ---
+% \answerspace{2in}  vertical room for handwritten work, sized from the solution
+% \blank             a short fill-in rule; \blank[1.5in] for a wider one
+% \answerpage        start the next problem on a fresh page (Gradescope page matching)
+\newcommand{\answerspace}[1]{\par\vspace*{#1}}  % \vspace* so room is not dropped at a page break
+\newcommand{\blank}[1][1.2in]{\rule{#1}{0.4pt}}
+\newcommand{\answerpage}{\clearpage}
+\newtcolorbox{solutionbox}{breakable,colback=blue!4,colframe=blue!45!black,title=Solution,fonttitle=\bfseries,left=4pt,right=4pt,top=3pt,bottom=3pt}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={DS701 Homework 9: Causal Inference and Neural Networks},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{DS701 Homework 9: Causal Inference and Neural Networks}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Released Mon Nov 9 · due Mon Nov 16, 11:59 pm on Gradescope}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+\begin{center}\LARGE\bfseries\color{blue!45!black} SOLUTIONS\end{center}
+\renewcommand{\answerspace}[1]{}
+\renewcommand{\answerpage}{\par\vspace{6pt}}
+
+\subsection{Problem 1: Does the coupon work? (read the
+table)}\label{problem-1-does-the-coupon-work-read-the-table}
+
+\emph{Practices: crude vs.~stratified comparisons, Simpson's paradox,
+and one standardization (L14).}
+
+A streaming service e-mailed a ``welcome back'' coupon to some lapsed
+subscribers: \(T=1\) if a user got the coupon, \(Y=1\) if they
+resubscribed within 30 days, and \(Z=1\) if the account had been lapsed
+\textbf{more than a year} (``long-lapsed''). Counts for 400 users; work
+with resubscription \emph{rates} and the \textbf{risk difference}
+\(P(Y{=}1\mid T{=}1)-P(Y{=}1\mid T{=}0)\) as the measure of effect:
+
+\begin{center}\small\setlength{\tabcolsep}{7pt}
+\begin{tabular}{@{}lcccc@{}}\toprule
+ & \multicolumn{2}{c}{long-lapsed ($Z{=}1$)} & \multicolumn{2}{c}{recently lapsed ($Z{=}0$)}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & users & resubscribed & users & resubscribed\\ \midrule
+coupon ($T{=}1$)    & 260 & 52 & 40 & 32\\
+no coupon ($T{=}0$) &  40 &  4 & 60 & 42\\
+\bottomrule\end{tabular}\end{center}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Compute the \textbf{crude} (pooled) resubscription rate for coupon and
+  no-coupon users and the crude risk difference, then the risk
+  difference \textbf{within} each stratum of \(Z\). Name the phenomenon,
+  name the role \(Z\) plays, and point to the \textbf{two ratios in the
+  table} that are its fingerprints.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Use the sheet's adjustment (standardization) formula
+  \(P(Y\mid do(T{=}t)) = \sum_z P(Y\mid T{=}t, Z{=}z)\,P(Z{=}z)\) to
+  compute \(P(Y{=}1\mid do(T{=}1))\), \(P(Y{=}1\mid do(T{=}0))\) and
+  their difference. In one sentence: what does this number estimate that
+  the crude difference does not?
+\end{enumerate}
+
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Crude: coupon \(\frac{52+32}{260+40} = \frac{84}{300} = 0.28\); no
+  coupon \(\frac{4+42}{40+60} = \frac{46}{100} = 0.46\); crude risk
+  difference \(0.28-0.46 = \mathbf{-0.18}\) --- the coupon \emph{looks}
+  harmful. Within \(Z{=}1\):
+  \(\frac{52}{260}-\frac{4}{40} = 0.20-0.10 = \mathbf{+0.10}\). Within
+  \(Z{=}0\):
+  \(\frac{32}{40}-\frac{42}{60} = 0.80-0.70 = \mathbf{+0.10}\). The
+  coupon helps by 10 points in \emph{both} strata yet ``hurts'' by 18
+  points pooled: \textbf{Simpson's paradox}. \(Z\) is a
+  \textbf{confounder} --- a common cause of \(T\) and \(Y\).
+  Fingerprints (both from the sheet's definition): (i) \(Z\) is unevenly
+  distributed across the levels of \(T\) --- long-lapsed users got the
+  coupon \(260/300 = 87\%\) of the time, recently lapsed only
+  \(40/100 = 40\%\); (ii) \(Z\) affects \(Y\) --- long-lapsed users
+  resubscribe at \(10\)--\(20\%\), recently lapsed at \(70\)--\(80\%\).
+  So the pooled coupon group is mostly hard cases and the pooled
+  no-coupon group mostly easy ones.
+\end{enumerate}
+
+\emph{Grading:} full credit needs the five numbers, the name, and
+\emph{both} fingerprints; ``\(Z\) is correlated with \(T\)'' alone is
+one fingerprint. Calling \(Z\) a mediator is wrong --- being long-lapsed
+happened \emph{before} the coupon, so \(T\to Z\) is impossible.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \(P(Z{=}1) = 300/400 = 0.75\), \(P(Z{=}0) = 0.25\).
+  \(P(Y{=}1\mid do(T{=}1)) = 0.75(0.20)+0.25(0.80) = 0.15+0.20 = \mathbf{0.35}\);
+  \(P(Y{=}1\mid do(T{=}0)) = 0.75(0.10)+0.25(0.70) = 0.075+0.175 = \mathbf{0.25}\);
+  difference \(\mathbf{+0.10}\). This estimates the effect of
+  \emph{intervening} --- sending the coupon to everyone vs.~no one, with
+  the population's own mix of long- and recently-lapsed users held fixed
+  in both arms --- whereas the crude difference compares two groups with
+  different \(Z\) mixes and so mixes the coupon's effect with the effect
+  of being long-lapsed.
+\end{enumerate}
+
+\emph{Common mistake:} weighting by \(0.5/0.5\) (the strata are not
+equal in size) or by the coupon group's own mix (\(260/300\)); the
+latter gives the ATT, which happens to coincide here because the
+within-stratum effects are equal.
+
+\end{solutionbox}
+
+\answerpage
+
+\subsection{Problem 2: One small DAG}\label{problem-2-one-small-dag}
+
+\emph{Practices: reading a causal DAG --- fork vs.~collider --- choosing
+the one variable to adjust for, and prediction vs.~intervention (L14).}
+
+The same service wants the \textbf{total effect} of its
+\textbf{autoplay} setting (\(T=1\) if on) on \textbf{weekly hours
+watched} \(Y\). Its analysts agree on this DAG: long-tenured subscribers
+(\(Z\) = tenure) are more likely to leave autoplay on \emph{and} watch
+more regardless, and marketing keeps a list \(C\) of ``engaged users''
+--- anyone with autoplay on \textbf{or} many hours watched. Because that
+list has the cleanest data, one analyst proposes comparing autoplay-on
+and autoplay-off users \textbf{within the list only}.
+
+\begin{center}
+\begin{tikzpicture}[>={Stealth[length=2.5mm]},
+    var/.style={draw, circle, minimum size=7mm, inner sep=1pt, font=\small},
+    lab/.style={font=\footnotesize, inner sep=1pt}]
+  \node[var] (Z) at (2,0.8)  {$Z$};
+  \node[var] (T) at (0,0)    {$T$};
+  \node[var] (Y) at (4,0)    {$Y$};
+  \node[var] (C) at (2,-0.8) {$C$};
+  \draw[->] (Z) -- (T);  \draw[->] (Z) -- (Y);
+  \draw[->] (T) -- (Y);
+  \draw[->] (T) -- (C);  \draw[->] (Y) -- (C);
+  \node[lab, right=3pt of Z] {tenure};
+  \node[lab, left=3pt of T] {autoplay on};
+  \node[lab, right=3pt of Y] {hours watched};
+  \node[lab, right=3pt of C] {on the ``engaged users'' list};
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  To estimate the total effect of \(T\) on \(Y\) there is exactly
+  \textbf{one} variable in this DAG you should adjust for. Which one,
+  and why --- name the building block (chain / fork / collider) that
+  \(Z\) and \(C\) each form with \(T\) and \(Y\), and the sheet's rule
+  for each. Then, in one or two sentences: what goes wrong with the
+  ``within the list only'' proposal?
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{True or false, with one reason each} (a sentence is enough):
+\end{enumerate}
+
+\begin{enumerate}[label=(\roman*),leftmargin=3.2em,topsep=2pt]
+\item A model that predicts hours watched very accurately from the autoplay
+  setting and other variables therefore tells us how much hours watched would
+  change if the service switched autoplay on for a user.
+\item If the service randomly assigned autoplay on/off to new accounts, the
+  plain difference in mean hours between the two arms would be an unbiased
+  estimate of the average treatment effect, \emph{even though tenure $Z$ is not
+  measured}.
+\end{enumerate}
+
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Adjust for \(\mathbf{Z}\) only. \(T\leftarrow Z\to Y\) is a
+  \textbf{fork}: \(Z\) is a confounder, and the path is the DAG's only
+  backdoor path (it starts with an arrow \emph{into} \(T\)). It is open
+  by default and conditioning on \(Z\) blocks it; \(Z\) is not a
+  descendant of \(T\), so \(S=\{Z\}\) satisfies the backdoor criterion
+  (sheet: ``adjust for forks''). \(T\to C\leftarrow Y\) is a
+  \textbf{collider}: blocked by default, so it needs no attention ---
+  and must get none (``never colliders''). Restricting to the
+  engaged-users list \emph{is} conditioning on \(C\): it opens the
+  collider path and manufactures a \(T\)--\(Y\) association that is not
+  causal --- among listed users, anyone with autoplay off must be there
+  because they watch a lot, so autoplay looks \emph{harmful} (collider /
+  Berkson bias). \(C\) is also a descendant of \(T\), a second violation
+  of the criterion.
+\end{enumerate}
+
+\emph{Grading:} full credit = \(Z\), both building blocks named
+correctly, and the opening-the-collider explanation. ``Adjust for \(Z\)
+and \(C\) to be safe'' earns the \(Z\) credit only --- more controls is
+not safer here.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\roman{enumii})}
+  \tightlist
+  \item
+    \textbf{False.} Predicting well is about \(P(Y\mid T, \dots)\) ---
+    association; the question asks about \(P(Y\mid do(T{=}1))\) ---
+    intervention. The predictive association can come entirely from the
+    fork through \(Z\) (long-tenured users both leave autoplay on and
+    watch more), so the model's coefficient on \(T\) need not reflect
+    what switching autoplay on would do. Prediction and intervention
+    answer different questions.
+  \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{True.} Randomization makes
+  \(\{Y(0),Y(1)\}\perp\!\!\!\perp T\), so
+  \(\mathbb E[Y(0)\mid T{=}1] = \mathbb E[Y(0)\mid T{=}0]\): the
+  selection-bias term in the naive difference is zero \emph{by design},
+  for every confounder, measured or not. Graphically, the arrow
+  \(Z\to T\) is cut, so no backdoor path exists and there is nothing to
+  adjust for.
+\end{enumerate}
+
+\emph{Grading:} a bare True/False earns nothing; the reason must name
+association vs.~intervention for (i) and the independence / ``selection
+bias \(=0\)'' for (ii).
+
+\end{solutionbox}
+
+\answerpage
+
+\subsection{Problem 3: Training a small
+network}\label{problem-3-training-a-small-network}
+
+\emph{Practices: what the parameters of an MLP are, reading training and
+validation loss, and one gradient-descent step (L16).}
+
+A team fits a regression MLP with \textbf{6 (scaled) input features},
+\textbf{one hidden layer of 8 ReLU units}, and \textbf{one linear
+output} \(\hat y\), trained with mean squared error.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  How many trainable parameters does the network have? Show the count as
+  ``weights \(+\) biases'' for each layer (every entry of the sheet's
+  \(\boldsymbol\Omega_k\) and \(\boldsymbol\beta_k\) counts). A teammate
+  then suggests removing the ReLU (``the hidden layer is still there, so
+  we keep the same capacity''). \textbf{True or false}, with one reason
+  --- and say how many \emph{effective} parameters the ReLU-free network
+  has.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Three training runs on the same data. Run A and Run B use the
+  architecture above and differ only in \texttt{learning\_rate\_init}.
+  Run C uses Run A's settings but the team forgot the
+  \texttt{StandardScaler}, so feature 3 (annual income, in dollars)
+  enters raw. Losses per epoch (Run C's row is in units of \(10^8\)):
+\end{enumerate}
+
+\begin{center}\small\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{@{}lrrrrrrrrrr@{}}\toprule
+epoch & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\ \midrule
+Run A ($\eta=0.01$), train      & 0.92 & 0.61 & 0.44 & 0.35 & 0.29 & 0.25 & 0.22 & 0.19 & 0.17 & 0.15\\
+Run A, validation               & 0.95 & 0.66 & 0.51 & 0.44 & 0.40 & \textbf{0.38} & 0.39 & 0.41 & 0.44 & 0.48\\
+Run B ($\eta=1.0$), train       & 0.92 & 1.61 & 0.88 & 2.73 & 5.40 & 4.12 & 9.85 & 21.7 & 18.3 & 47.6\\
+Run C (unscaled), train $/10^8$ & 2.1 & 2.0 & 2.0 & 1.9 & 1.9 & 1.9 & 1.9 & 1.9 & 1.9 & 1.9\\
+\bottomrule\end{tabular}\end{center}
+
+\begin{enumerate}[label=(\roman*),leftmargin=3.2em,topsep=2pt]
+\item Diagnose \textbf{Run B} in one sentence, and name the knob and the
+  direction you would turn it.
+\item In \textbf{Run A}, what is happening from epoch 7 on, and what is it
+  called? The team re-runs A with \texttt{early\_stopping=True} and
+  \texttt{n\_iter\_no\_change=3}, which here means: \emph{stop as soon as the
+  validation loss has failed to improve on its best value for 3 consecutive
+  epochs, and keep the weights from the best epoch.} After which epoch does
+  training stop, and which epoch's weights are kept?
+\item Diagnose \textbf{Run C} in one sentence: why does one raw feature make
+  gradient descent behave like this, and what is the fix?
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  At some step of Run A, one hidden unit has incoming weights
+  \(\mathbf w = (0.40,\,-0.90,\,1.50)\) and bias \(b = 0.20\), and
+  backprop has already delivered the gradients
+  \(\partial L/\partial \mathbf w = (-0.50,\,0.20,\,2.00)\) and
+  \(\partial L/\partial b = -1.00\). Apply \textbf{one} gradient-descent
+  update with \(\eta = 0.1\) and write the new \(\mathbf w\) and \(b\).
+  Then: with \(\eta = 1.0\) instead, what would the third weight become,
+  and what does the sheet say a learning rate that large risks?
+\end{enumerate}
+
+\begin{solutionbox}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Hidden layer: \(\boldsymbol\Omega_0\) is \(8\times6 = 48\) weights,
+  \(\boldsymbol\beta_0\) is \(8\) biases \(\Rightarrow 56\). Output
+  layer: \(\boldsymbol\Omega_1\) is \(1\times8 = 8\) weights,
+  \(\boldsymbol\beta_1\) is \(1\) bias \(\Rightarrow 9\). \textbf{Total
+  \(65\).} The claim is \textbf{false}: without the non-linearity the
+  two layers collapse to one linear map,
+  \(\hat y = \boldsymbol\beta_1 + \boldsymbol\Omega_1(\boldsymbol\beta_0 + \boldsymbol\Omega_0\mathbf x)
+  = (\boldsymbol\beta_1 + \boldsymbol\Omega_1\boldsymbol\beta_0) + (\boldsymbol\Omega_1\boldsymbol\Omega_0)\mathbf x\),
+  i.e.~plain linear regression on 6 features: \textbf{7 effective
+  parameters} (6 weights \(+\) 1 bias), however many numbers are stored.
+  The 65 stored values are not 65 degrees of freedom in what the network
+  can represent.
+\end{enumerate}
+
+\emph{Grading:} the layer-by-layer count (not just 65) and ``collapses
+to one linear map'' with the 7. Forgetting the biases (56) is the common
+slip.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\roman{enumii})}
+  \tightlist
+  \item
+    Run B's loss bounces and grows by orders of magnitude --- the
+    learning rate is \textbf{too large}: each step overshoots the
+    minimum and the iteration diverges (sheet: ``\(\eta\) too large: no
+    convergence / diverges''). Turn \texttt{learning\_rate\_init}
+    \textbf{down} (e.g.~by \(10\times\) or \(100\times\)).
+  \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  From epoch 7 the training loss keeps falling while the validation loss
+  rises: the network is fitting noise in the training set ---
+  \textbf{overfitting}. The best validation loss is \(0.38\) at epoch 6;
+  epochs 7, 8 and 9 all fail to beat it, so with patience 3 training
+  \textbf{stops after epoch 9} and the \textbf{epoch-6} weights are kept
+  (that is what ``early stopping'' means: the knob is a regulariser that
+  picks the epoch, not a speed-up).
+\item
+  Income in dollars is \(\sim10^4\)--\(10^5\) times larger than the
+  scaled features, so the loss is enormous from epoch 1 and the gradient
+  is dominated by that one weight: a step size that is right for the
+  small features is far too small along the income direction (and any
+  \(\eta\) large enough to move it would blow up the others), so one
+  \(\eta\) cannot serve all directions and the loss barely moves. Fix:
+  \textbf{scale every feature} (\texttt{StandardScaler}, inside a
+  \texttt{Pipeline} so the test data gets the same transform) --- the
+  sheet's ``huge from epoch 1 \(\Rightarrow\) scale''.
+\end{enumerate}
+
+\emph{Grading:} (i) and (iii) need the diagnosis \emph{and} the fix;
+(ii) needs ``overfitting'', the stop epoch (9) and the kept epoch (6)
+--- ``stops at epoch 6'' confuses the best epoch with the stopping
+epoch.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \(\mathbf w \leftarrow \mathbf w - \eta\,\partial L/\partial\mathbf w\):
+  \(w_1 = 0.40 - 0.1(-0.50) = \mathbf{0.45}\),
+  \(w_2 = -0.90 - 0.1(0.20) = \mathbf{-0.92}\),
+  \(w_3 = 1.50 - 0.1(2.00) = \mathbf{1.30}\);
+  \(b = 0.20 - 0.1(-1.00) = \mathbf{0.30}\). Each parameter moves
+  \emph{against} its gradient, by an amount proportional to it ---
+  \(w_3\), with the largest gradient, moves the most. With
+  \(\eta = 1.0\): \(w_3 = 1.50 - 2.00 = \mathbf{-0.50}\) --- the weight
+  overshoots and flips sign in a single step; the sheet warns that too
+  large an \(\eta\) gives no convergence or outright divergence, which
+  is exactly Run B.
+\end{enumerate}
+
+\emph{Common mistake:} adding the gradient (\(w_1 = 0.35\)) --- the
+update subtracts because the gradient points toward steepest
+\emph{increase}.
+
+\end{solutionbox}
+
+
+
+
+\end{document}
